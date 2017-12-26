@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="true" xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="fileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/id-api-tests.log"/>
+        <param name="DatePattern" value=".yyyy-MM-dd"/>
+        <!--<param name="MaxFileSize" value="1000000KB"/>
+        <param name="MaxBackupIndex" value="10"/> -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{dd MMM yyyy HH:mm:ss} %-5p  [%t] %-5p %c %x - %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Appender to output WARN and above level logs. Uses pattern *WARN* so Robot picks it up as WARN. -->
+    <appender name="stdout_warn" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.err"/>
+        <param name="Follow" value="true"/>
+        <!-- only warn above log will show up on console. all goes to the file-->
+        <param name="Threshold" value="WARN"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="*WARN* %c{1} %x - %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Appender to output INFO level logs. Uses pattern *INFO* so Robot picks it up as INFO. -->
+    <appender name="stdout_info" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.err"/>
+        <param name="Follow" value="true"/>
+        <!-- only warn above log will show up on console. all goes to the file-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="*INFO* %c{1} %x - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="INFO"/>
+            <param name="levelMax" value="INFO"/>
+        </filter>
+    </appender>
+
+    <!-- Appender to output DEBUG level logs. Uses pattern *DEBUG* so Robot picks it up as DEBUG. -->
+    <appender name="stdout_debug" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.err"/>
+        <param name="Follow" value="true"/>
+        <param name="Threshold" value="DEBUG"/>
+        <!-- only warn above log will show up on console. all goes to the file-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="*DEBUG* %c{1} %x - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="DEBUG"/>
+            <param name="levelMax" value="DEBUG"/>
+        </filter>
+    </appender>
+
+    <!--Log HTML events to a special appender for Robot *HTML* logs-->
+    <appender name="HtmlConsole" class="org.apache.log4j.ConsoleAppender">
+        <!-- Set Target to System.err to make robot print in console -->
+        <param name="Target" value="System.err"/>
+        <param name="Follow" value="true"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="*HTML* %m%n"/>
+        </layout>
+        <param name="Threshold" value="INFO"/>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="INFO"/>
+            <param name="levelMax" value="INFO"/>
+        </filter>
+    </appender>
+
+    <logger name="org.reflections.Reflections">
+        <level value="ERROR"/>
+    </logger>
+
+    <logger name="org.apache.http">
+        <level value="ERROR"/>
+    </logger>
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="stdout_debug"/>
+        <appender-ref ref="stdout_info"/>
+        <appender-ref ref="stdout_warn"/>
+        <appender-ref ref="fileAppender"/>
+    </root>
+</log4j:configuration>

@@ -1,0 +1,8 @@
+.idea
+*.iml
+*.swp
+*.checkstyle-cachefile
+.DS_Store
+target/
+repository/
+logs/
