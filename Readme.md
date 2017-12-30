@@ -5,7 +5,13 @@ and they will be skipped until it is resolved.
 
 ## Installation
 
-1. Add This module to your project, or add the maven dependency(T.B.D) to your pom.xml
+1. Add This module to your project, or add the maven dependency: 
+ <dependency>
+   <groupId>com.orshachar</groupId>
+   <artifactId>known-issue</artifactId>
+   <version>1.0.0</version>
+ </dependency>
+ to your pom.xml
 2. Create a jira.properties file under your /resources folder, add the following properties:
    
    - jira.url=https://example.atlassian.net
